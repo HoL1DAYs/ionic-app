@@ -20,6 +20,7 @@ log.txt
 # Ionic
 /.ionic
 /www
+/build
 /platforms
 /plugins
 
@@ -66,3 +67,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+.ionic/
+.env
