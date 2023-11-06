@@ -2,12 +2,12 @@
   <ion-toolbar>
     <div class="flex-sides">
       <ion-title>main-page</ion-title>
-      <ion-icon name="logo-ionic" size="large" color="primary"></ion-icon>
+      <ion-icon name="logo-ionic" size="large" color="primary" (click)="startScan()"></ion-icon>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [style.--background]="scanActive ? '#00000000' : '#fff'">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">main-page</ion-title>
@@ -15,14 +15,27 @@
   </ion-header>
   <ion-content color="light">
     <ion-list [inset]="true">
-      <ion-item routerLink="/second-page">
-        <ion-label>Pokémon Yellow</ion-label>
+      <ion-item routerLink="/second-page" *ngFor="let contact of contacts">
+        <ion-label>{{contact?.name?.display}}
+          <p>
+<!--            <ion-text *ngFor="let phone of contact?.phones; let i = 0, ">-->
+<!--              <span *ngIf="i > 0">,</span> {{phone?.number}}-->
+<!--            </ion-text>-->
+            {{joinNumbers(contact?.phones)}}
+          </p>
+        </ion-label>
       </ion-item>
       <ion-item routerLink="/second-page">
-        <ion-label>Mega Man X</ion-label>
+        <ion-label>i am here</ion-label>
       </ion-item>
-      <ion-item routerLink="/second-page">
-        <ion-label>The Legend of Zelda</ion-label>
+      <ion-item routerLink="/second-page" >
+        <ion-label>hello</ion-label>
+      </ion-item>
+      <ion-item routerLink="/second-page" >
+        <ion-label>{{permission | json}}</ion-label>
+      </ion-item>
+      <ion-item (click)="startScan()">
+        <ion-label>{{barcodePermissions | json}}</ion-label>
       </ion-item>
     </ion-list>
   </ion-content>
