@@ -5,7 +5,7 @@ import { SecondPagePage } from './second-page.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: SecondPagePage
   }
 ];

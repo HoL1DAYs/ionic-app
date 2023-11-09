@@ -16,7 +16,6 @@ export class MainPagePage implements OnInit {
   constructor() {
     Contacts.requestPermissions().then(result=>{
       this.permission = result
-      alert(result.contacts)
     })
     this.LoadContacts()
     this.checkPermissions().then(result=>{
@@ -38,7 +37,6 @@ export class MainPagePage implements OnInit {
         },
       }).then(results=>{
         this.contacts = results.contacts
-        alert(this.contacts)
       })
 
     }catch (e){
@@ -82,7 +80,7 @@ export class MainPagePage implements OnInit {
   scanSingleBarcode = async () => {
     return new Promise(async resolve => {
       document.querySelector('body')?.classList.add('barcode-scanner-active');
-
+      this.scanActive = true
       const listener = await BarcodeScanner.addListener(
         'barcodeScanned',
         async result => {
@@ -91,10 +89,11 @@ export class MainPagePage implements OnInit {
             .querySelector('body')
             ?.classList.remove('barcode-scanner-active');
           await BarcodeScanner.stopScan();
+          this.scanActive = false
+          alert(result.barcode.displayValue);
           resolve(result.barcode);
         },
       );
-
       await BarcodeScanner.startScan();
     });
   };
@@ -117,7 +116,6 @@ export class MainPagePage implements OnInit {
 
   checkPermissions = async () => {
     const { camera } = await BarcodeScanner.checkPermissions();
-    alert(camera)
     return camera;
   };
 
