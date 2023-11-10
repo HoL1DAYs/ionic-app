@@ -20,8 +20,18 @@ const routes: Routes = [
     loadChildren: () => import('./main-page/main-page.module').then( m => m.MainPagePageModule)
   },
   {
-    path: 'second-page/:id',
-    loadChildren: () => import('./second-page/second-page.module').then( m => m.SecondPagePageModule)
+    path: 'second-page',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./second-page/second-page.module').then( m => m.SecondPagePageModule)
+      },
+      {
+        path: ':contactId',
+        loadChildren: () => import('./second-page/second-page.module').then( m => m.SecondPagePageModule)
+      }
+    ]
+
   },
 ];
 

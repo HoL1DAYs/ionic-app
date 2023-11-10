@@ -12,12 +12,14 @@ export class MainPagePage implements OnInit {
   permission: any
   barcodePermissions: any
   scanActive: boolean = false
+  contact: any
 
   constructor() {
     Contacts.requestPermissions().then(result=>{
       this.permission = result
     })
     this.LoadContacts()
+    this.LoadContact()
     this.checkPermissions().then(result=>{
       this.barcodePermissions = result
     })
@@ -37,6 +39,38 @@ export class MainPagePage implements OnInit {
         },
       }).then(results=>{
         this.contacts = results.contacts
+      })
+
+    }catch (e){
+      console.log(e)
+    }
+
+  }
+
+
+  async LoadContact(){
+    try{
+      this.permission = await Contacts.requestPermissions()
+      Contacts.getContact({
+        contactId: '22',
+        projection: {
+          name: true,
+          phones: true,
+          // emails: true,
+          // note: true,
+          // urls:true,
+          // postalAddresses: true,
+          // image: true,
+          // organization: true,
+          // birthday: true
+        }
+      }).then(results=>{
+        this.contact = results.contact
+        if (this.contact){
+          alert(this.contact.value)
+        }else{
+          alert('not ok')
+        }
       })
 
     }catch (e){

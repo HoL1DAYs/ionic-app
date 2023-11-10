@@ -9,21 +9,40 @@ import {ActivatedRoute, Params} from "@angular/router";
 })
 export class SecondPagePage implements OnInit {
   permission:any
+  contacts: any[] = []
   contact: any
-  contactId: string
+  contactId: any
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((params: Params)=>{
-      this.contactId =params['id']
+    this.route.params.subscribe((params: Params)=>{
+      this.contactId = JSON.stringify(params)
     })
-
     this.LoadContacts()
+
+    this.LoadContact()
+
+  }
+  async LoadContacts(){
+    try{
+      this.permission = await Contacts.requestPermissions()
+      Contacts.getContacts({
+        projection: {
+          name: true,
+          phones: true
+        },
+      }).then(results=>{
+        this.contacts = results.contacts
+      })
+
+    }catch (e){
+      console.log(e)
+    }
 
   }
 
-  async LoadContacts(){
+  async LoadContact(){
     try{
       this.permission = await Contacts.requestPermissions()
       Contacts.getContact({
@@ -41,6 +60,7 @@ export class SecondPagePage implements OnInit {
         }
       }).then(results=>{
         this.contact = results.contact
+        alert(this.contact)
       })
 
     }catch (e){
@@ -48,5 +68,6 @@ export class SecondPagePage implements OnInit {
     }
 
   }
+
 
 }

@@ -15,13 +15,19 @@
   </ion-header>
   <ion-content color="light">
     <ion-list [inset]="true">
-      <ion-item [routerLink]="['/', 'second-page', contact.contactId]" *ngFor="let contact of contacts">
+      <ion-item routerLink="/second-page/{{i}}" *ngFor="let contact of contacts, let i =index">
         <ion-label>
           {{contact?.name?.display}}
           <p>
             {{joinNumbers(contact?.phones)}}
           </p>
         </ion-label>
+      </ion-item>
+      <ion-item routerLink="/second-page/1">
+        <ion-label>i am here</ion-label>
+      </ion-item>
+      <ion-item routerLink="/second-page/2" >
+        <ion-label>{{contacts[0]|json}}</ion-label>
       </ion-item>
     </ion-list>
   </ion-content>
