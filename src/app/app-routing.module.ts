@@ -3,10 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
     redirectTo: 'authentication-page',
     pathMatch: 'full'
@@ -20,18 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./main-page/main-page.module').then( m => m.MainPagePageModule)
   },
   {
-    path: 'second-page',
-    children: [
-      {
-        path: '',
-        loadChildren: () => import('./second-page/second-page.module').then( m => m.SecondPagePageModule)
-      },
-      {
-        path: ':contactId',
-        loadChildren: () => import('./second-page/second-page.module').then( m => m.SecondPagePageModule)
-      }
-    ]
-
+    path: 'second-page/:contactId',
+    loadChildren: () => import('./second-page/second-page.module').then( m => m.SecondPagePageModule)
   },
 ];
 
@@ -41,4 +27,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
